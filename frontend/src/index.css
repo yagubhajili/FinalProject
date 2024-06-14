@@ -1,0 +1,15 @@
+:root {
+    --background-color: #ffffff;
+    --sidebar-color: #ffffff;
+    --tiktok-red: #fe2c55;
+    --tiktok-black: #000000;
+    --tiktok-light-black: #121212;
+}
+
+[data-theme="dark"] {
+    --background-color: #000000;
+    --sidebar-color: #121212;
+    --tiktok-red: #fe2c55;
+    --tiktok-black: #000000;
+    --tiktok-light-black: #121212;
+}

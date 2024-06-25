@@ -7,7 +7,7 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3300
 
-
+app.use(express.json())
 app.use('/auth', authRoute)
 
 app.listen(PORT, () => {

@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { v2 as cloudinary } from 'cloudinary'
 import authRoute from './routes/authRoute.js'
 import userRoute from './routes/userRoute.js'
+import postRoute from './routes/postRoute.js'
 import connectMongoDb from './config/db.js'
 import cookieParser from 'cookie-parser'
 
@@ -23,6 +24,8 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/auth', authRoute)
 app.use('/users', userRoute)
+app.use('/posts', postRoute)
+
 
 
 app.listen(PORT, () => {

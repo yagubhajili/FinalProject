@@ -15,7 +15,7 @@ export const getUserProfile = async (req, res) => {
         }
         res.status(200).json(user)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "internal servere error" });
 
     }
 
@@ -51,7 +51,7 @@ export const followUnfollowUser = async (req, res) => {
 
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: "internal servere error" });
 
     }
 }
@@ -75,8 +75,7 @@ export const getSuggestedProfile = async (req, res) => {
         suggestedUsers.forEach(user => user.password = null)
         res.status(200).json(suggestedUsers)
     } catch (error) {
-        res.status(500).json({ error: error.message });
-
+        res.status(500).json({ error: "internal servere error" });
     }
 }
 

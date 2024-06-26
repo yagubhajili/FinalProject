@@ -1,5 +1,8 @@
 import User from "../models/userModel.js"
 import bcrypt from 'bcryptjs'
+import { v2 as cloudinary } from 'cloudinary'
+import Notifications from "../models/notificationModel.js"
+
 
 
 
@@ -38,7 +41,7 @@ export const followUnfollowUser = async (req, res) => {
         } else {
             await User.findByIdAndUpdate(id, { $push: { followers: req.user._id } })
             await User.findByIdAndUpdate(req.user._id, { $push: { following: id } })
-            const newNotification = new Notification({
+            const newNotification = new Notifications({
                 type: 'follow',
                 from: req.user._id,
                 to: userTOModify._id
@@ -84,7 +87,7 @@ export const updateUser = async (req, res) => {
 
     const userId = req.user._id
     try {
-        const user = await User.findById(userId)
+        let user = await User.findById(userId)
         if (!user) {
             return res.status(404).json({ message: 'user not found' })
         }
@@ -103,11 +106,31 @@ export const updateUser = async (req, res) => {
             user.password = await bcrypt.hash(newPassword, salt)
         }
         if (coverImg) {
-
+            if (user.coverImg) {
+                await cloudinary.uploader.destroy(user.coverImg.split('/').pop().split('.')[0])
+            }
+            const res = await cloudinary.uploader.upload(coverImg)
+            coverImg = res.secure_url
         }
         if (profileImg) {
-
+            if (user.profileImg) {
+                await cloudinary.uploader.destroy(user.profileImg.split('/').pop().split('.')[0])
+            }
+            const res = await cloudinary.uploader.upload(profileImg)
+            profileImg = res.secure_url
         }
+        user.fullName = fullName || user.fullName
+        user.email = email || user.email
+        user.username = username || user.username
+        user.bio = bio || user.bio
+        user.link = link || user.link
+        user.profileImg = profileImg || user.profileImg
+        user.coverImg = coverImg || user.coverImg
+
+        user = await user.save()
+        user.password = null
+
+        return res.status(200).json(user)
 
     } catch (error) {
         res.status(500).json({ error: error.message });

@@ -2,7 +2,7 @@ import './App.css'
 import Home from './pages/home/Home'
 import SignUp from './pages/auth/signup/SignUp'
 import Login from './pages/auth/login/Login'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Sidebar from './components/common/Sidebar'
 import RightPanel from './components/common/RightPanel'
 import NotificationPage from './pages/notification/NotificationPage'
@@ -18,6 +18,7 @@ function App() {
       try {
         const res = await fetch('http://localhost:3200/auth/me')
         const data = await res.json()
+        if (data.error) return null
         if (!res.ok) throw new Error(data.error || "Something went wrong");
         console.log("data", data);
         return data;
@@ -25,7 +26,8 @@ function App() {
         console.log(error);
         throw error;
       }
-    }
+    },
+    retry: false
   })
   if (isLoading) {
     return (
@@ -37,17 +39,15 @@ function App() {
 
   return (
     <div className='flex max-w-6xl mx-auto'>
-      <Sidebar />
-
+      {data && <Sidebar />}
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/notifications' element={<NotificationPage />} />
-        <Route path='/profile/:username' element={<ProfilePage />} />
-
+        <Route path='/' element={data ? <Home /> : <Navigate to='/login' />} />
+        <Route path='/signup' element={!data ? <SignUp /> : <Navigate to='/' />} />
+        <Route path='/login' element={!data ? <Login /> : <Navigate to='/' />} />
+        <Route path='/notifications' element={data ? <NotificationPage /> : <Navigate to='/login' />} />
+        <Route path='/profile/:username' element={data ? <ProfilePage /> : <Navigate to='/login' />} />
       </Routes>
-      <RightPanel />
+      {data && <RightPanel />}
       <Toaster />
     </div>
   )

@@ -7,15 +7,15 @@ const Posts = ({ feedType, username, userId }) => {
 	const getPostEndpoint = () => {
 		switch (feedType) {
 			case "forYou":
-				return "/api/posts/all";
+				return "http://localhost:3200/posts/all";
 			case "following":
-				return "/api/posts/following";
+				return "http://localhost:3200/posts/following";
 			case "posts":
-				return `/api/posts/user/${username}`;
+				return `http://localhost:3200/posts/user/${username}`;
 			case "likes":
-				return `/api/posts/likes/${userId}`;
+				return `http://localhost:3200/posts/likes/${userId}`;
 			default:
-				return "/api/posts/all";
+				return "http://localhost:3200/posts/all";
 		}
 	};
 

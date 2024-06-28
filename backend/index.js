@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { urlencoded } from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { v2 as cloudinary } from 'cloudinary'
@@ -22,16 +22,17 @@ const app = express()
 const PORT = process.env.PORT || 3300
 
 app.use(cors({
-    origin: 'http://localhost:3100', 
+    origin: 'http://localhost:5000',
     credentials: true
 }));
 app.use(express.json())
+app.use(urlencoded({ extended: true }))
 
 app.use(cookieParser())
-app.use('/auth', authRoute)
-app.use('/users', userRoute)
-app.use('/posts', postRoute)
-app.use('/notifications', notificationtRoute)
+app.use('/api/auth', authRoute)
+app.use('/api/users', userRoute)
+app.use('/api/posts', postRoute)
+app.use('/api/notifications', notificationtRoute)
 
 
 

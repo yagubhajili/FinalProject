@@ -14,10 +14,10 @@ const Login = () => {
         password: "",
     });
     const queryClient = useQueryClient()
-    const { mutate, isPending, isError, error } = useMutation({
+    const { mutate: loginMutation, isPending, isError, error } = useMutation({
         mutationFn: async ({ username, password }) => {
             try {
-                const res = await fetch("http://localhost:3200/auth/login", {
+                const res = await fetch("/api/auth/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
-        mutate(formData)
+        loginMutation(formData)
     };
 
     const handleInputChange = (e) => {

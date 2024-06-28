@@ -18,7 +18,7 @@ const CreatePost = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		alert("Post created successfully");
+		// alert("Post created successfully");
 	};
 
 	const handleImgChange = (e) => {

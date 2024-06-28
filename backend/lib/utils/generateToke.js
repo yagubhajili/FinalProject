@@ -12,7 +12,7 @@ export const generateTokenAndSetCookie = (userId, res) => {
             sameSite: "strict",
             secure: process.env.NODE_ENV !== "development",
         });
-        console.log(token,'cookie:',res.cookie)
+        // console.log(token,'cookie:',res.cookie)
     } catch (error) {
         console.error("Error generating token or setting cookie:", error.message);
         res.status(500).json({ error: "Internal Server Error" });

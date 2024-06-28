@@ -12,42 +12,43 @@ import { useQuery } from '@tanstack/react-query'
 import LoadingSpinner from './components/common/LoadingSpinner'
 
 function App() {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data: authUser, isLoading } = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
       try {
-        const res = await fetch('http://localhost:3200/auth/me')
-        const data = await res.json()
-        if (data.error) return null
-        if (!res.ok) throw new Error(data.error || "Something went wrong");
-        console.log("data", data);
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+        if (data.error) return null;
+        if (!res.ok) {
+          throw new Error(data.error || 'Something went wrong');
+        }
         return data;
       } catch (error) {
-        console.log(error);
-        throw error;
+        throw new Error(error);
       }
     },
-    retry: false
-  })
+    retry: false,
+  });
+
   if (isLoading) {
     return (
       <div className='h-screen flex justify-center items-center'>
-        <LoadingSpinner size='lg' />
+        <LoadingSpinner />
       </div>
     )
   }
 
   return (
     <div className='flex max-w-6xl mx-auto'>
-      {data && <Sidebar />}
+      {authUser && <Sidebar />}
       <Routes>
-        <Route path='/' element={data ? <Home /> : <Navigate to='/login' />} />
-        <Route path='/signup' element={!data ? <SignUp /> : <Navigate to='/' />} />
-        <Route path='/login' element={!data ? <Login /> : <Navigate to='/' />} />
-        <Route path='/notifications' element={data ? <NotificationPage /> : <Navigate to='/login' />} />
-        <Route path='/profile/:username' element={data ? <ProfilePage /> : <Navigate to='/login' />} />
+        <Route path='/' element={authUser ? <Home /> : <Navigate to='/login' />} />
+        <Route path='/signup' element={!authUser ? <SignUp /> : <Navigate to='/' />} />
+        <Route path='/login' element={!authUser ? <Login /> : <Navigate to='/' />} />
+        <Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
+        <Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
       </Routes>
-      {data && <RightPanel />}
+      {authUser && <RightPanel />}
       <Toaster />
     </div>
   )

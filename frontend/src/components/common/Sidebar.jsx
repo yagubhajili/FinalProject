@@ -15,8 +15,9 @@ const Sidebar = () => {
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: async () => {
             try {
-                const res = await fetch('/api/auth/logout', {
-                    method: "POST"
+                const res = await fetch('http://localhost:3200/api/auth/logout', {
+                    method: "POST",
+                    credentials: "include"
                 })
                 const data = await res.json()
 

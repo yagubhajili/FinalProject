@@ -38,7 +38,9 @@ const ProfilePage = () => {
         queryKey: ["userProfile"],
         queryFn: async () => {
             try {
-                const res = await fetch(`/api/users/profile/${username}`);
+                const res = await fetch(`http://localhost:3200/api/users/profile/${username}`, {
+                    credentials: 'include'
+                });
                 const data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.error || "Something went wrong");
@@ -51,8 +53,7 @@ const ProfilePage = () => {
     });
 
     const { isUpdatingProfile, updateProfile } = useUpdateUserProfile();
-
-    const isMyProfile = authUser._id === user?._id;
+    const isMyProfile = authUser?._id === user?._id;
     const memberSinceDate = formatMemberSinceDate(user?.createdAt);
     const amIFollowing = authUser?.following.includes(user?._id);
 
@@ -67,6 +68,7 @@ const ProfilePage = () => {
             reader.readAsDataURL(file);
         }
     };
+
 
     useEffect(() => {
         refetch();
@@ -87,7 +89,7 @@ const ProfilePage = () => {
                                 </Link>
                                 <div className='flex flex-col'>
                                     <p className='font-bold text-lg'>{user?.fullName}</p>
-                                    <span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
+                                    {/* <span className='text-sm text-slate-500'>{POSTS?.length} posts</span> */}
                                 </div>
                             </div>
                 

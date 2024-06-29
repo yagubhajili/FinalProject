@@ -7,7 +7,7 @@ import Notifications from "../models/notificationModel.js"
 
 
 export const getUserProfile = async (req, res) => {
-    const { username } = req.body
+    const { username } = req.params ?? {}
     try {
         const user = await User.findOne({ username }).select('-password')
         if (!user) {
@@ -15,8 +15,8 @@ export const getUserProfile = async (req, res) => {
         }
         res.status(200).json(user)
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "internal servere error" });
-
     }
 
 }

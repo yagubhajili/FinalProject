@@ -25,8 +25,9 @@ const Post = ({ post }) => {
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`/api/posts/${post._id}`, {
+				const res = await fetch(`http://localhost:3200/api/posts/${post._id}`, {
 					method: "DELETE",
+					credentials: 'include'
 				});
 				const data = await res.json();
 
@@ -49,6 +50,7 @@ const Post = ({ post }) => {
 			try {
 				const res = await fetch(`http://localhost:3200/posts/like/${post._id}`, {
 					method: "POST",
+					credentials: 'include'
 				});
 				const data = await res.json();
 				if (!res.ok) {
@@ -79,6 +81,7 @@ const Post = ({ post }) => {
 			try {
 				const res = await fetch(`http://localhost:3200/posts/comment/${post._id}`, {
 					method: "POST",
+					credentials: 'include',
 					headers: {
 						"Content-Type": "application/json",
 					},

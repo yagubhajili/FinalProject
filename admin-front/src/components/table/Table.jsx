@@ -18,12 +18,12 @@ const Table = () => {
         }
     }
 
-   
+
     useEffect(() => {
         getAll()
     }, [])
 
-    
+
     useEffect(() => {
         let results = users.filter(user =>
             user.username.toLowerCase().includes(search.toLowerCase())
@@ -36,9 +36,9 @@ const Table = () => {
         }
 
         setFilteredUsers(results)
-    }, [search, sortOrder, users]) 
+    }, [search, sortOrder, users])
 
-    
+
     const handleSortAsc = () => {
         setSortOrder('asc')
     }
@@ -48,8 +48,9 @@ const Table = () => {
     }
 
     return (
-        <>
-            <form className="mt-12 max-w-md mx-auto">
+        <div className='relative py-16 bg-gradient-to-r from-blue-500 via-purple-500 to-red-500'>
+   
+            <form className="mt-0 max-w-md mx-auto">
                 <label
                     htmlFor="default-search"
                     className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -168,7 +169,7 @@ const Table = () => {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     )
 }
 

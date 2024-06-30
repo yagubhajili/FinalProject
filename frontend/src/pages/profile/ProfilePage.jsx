@@ -126,14 +126,16 @@ const ProfilePage = () => {
                                 <div className='avatar absolute -bottom-16 left-4'>
                                     <div className='w-32 rounded-full relative group/avatar'>
                                         <img src={profileImg || user?.profileImg || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} />
-                                        <div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
-                                            {isMyProfile && (
+
+                                        {isMyProfile && (
+                                            <div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
                                                 <MdEdit
                                                     className='w-4 h-4 text-white'
                                                     onClick={() => profileImgRef.current.click()}
                                                 />
-                                            )}
-                                        </div>
+                                            </div>
+                                        )}
+
                                     </div>
                                 </div>
                             </div>

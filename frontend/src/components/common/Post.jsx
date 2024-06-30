@@ -48,7 +48,7 @@ const Post = ({ post }) => {
 	const { mutate: likePost, isPending: isLiking } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`http://localhost:3200/posts/like/${post._id}`, {
+				const res = await fetch(`http://localhost:3200/api/posts/like/${post._id}`, {
 					method: "POST",
 					credentials: 'include'
 				});
@@ -79,7 +79,7 @@ const Post = ({ post }) => {
 	const { mutate: commentPost, isPending: isCommenting } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch(`http://localhost:3200/posts/comment/${post._id}`, {
+				const res = await fetch(`http://localhost:3200/api/posts/comment/${post._id}`, {
 					method: "POST",
 					credentials: 'include',
 					headers: {
@@ -220,10 +220,10 @@ const Post = ({ post }) => {
 									<button className='outline-none'>close</button>
 								</form>
 							</dialog>
-							<div className='flex gap-1 items-center group cursor-pointer'>
+							{/* <div className='flex gap-1 items-center group cursor-pointer'>
 								<BiRepost className='w-6 h-6  text-slate-500 group-hover:text-green-500' />
 								<span className='text-sm text-slate-500 group-hover:text-green-500'>0</span>
-							</div>
+							</div> */}
 							<div className='flex gap-1 items-center group cursor-pointer' onClick={handleLikePost}>
 								{isLiking && <LoadingSpinner size='sm' />}
 								{!isLiked && !isLiking && (
@@ -241,9 +241,9 @@ const Post = ({ post }) => {
 								</span>
 							</div>
 						</div>
-						<div className='flex w-1/3 justify-end gap-2 items-center'>
+						{/* <div className='flex w-1/3 justify-end gap-2 items-center'>
 							<FaRegBookmark className='w-4 h-4 text-slate-500 cursor-pointer' />
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

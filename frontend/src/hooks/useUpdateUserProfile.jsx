@@ -7,7 +7,7 @@ const useUpdateUserProfile = () => {
 	const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
 		mutationFn: async (formData) => {
 			try {
-				const res = await fetch(`http://localhost:3200/users/update`, {
+				const res = await fetch(`http://localhost:3200/api/users/update`, {
 					method: "POST",
 					credentials: 'include',
 					headers: {

@@ -17,7 +17,7 @@ const Post = ({ post }) => {
 	const queryClient = useQueryClient();
 	const postOwner = post.user;
 	const isLiked = post.likes.includes(authUser._id);
-
+	console.log(post.img)
 	const isMyPost = authUser._id === post.user._id;
 
 	const formattedDate = formatPostDate(post.createdAt);
@@ -126,8 +126,14 @@ const Post = ({ post }) => {
 		<>
 			<div className='flex gap-2 items-start p-4 border-b border-gray-700'>
 				<div className='avatar'>
-					<Link to={`/profile/${postOwner.username}`} className='w-8 rounded-full overflow-hidden'>
-						<img src={postOwner.profileImg || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} />
+					<Link to={`/profile/${postOwner.username}`} className="w-8 h-8 rounded-full overflow-hidden">
+						<img
+							src={
+								postOwner.profileImg ||
+								"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+							}
+							className="object-cover w-full h-full"
+						/>
 					</Link>
 				</div>
 				<div className='flex flex-col flex-1'>

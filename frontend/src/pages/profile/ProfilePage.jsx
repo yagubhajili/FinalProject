@@ -77,7 +77,7 @@ const ProfilePage = () => {
     return (
         <>
             <div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
-        
+
                 {(isLoading || isRefetching) && <ProfileHeaderSkeleton />}
                 {!isLoading && !isRefetching && !user && <p className='text-center text-lg mt-4'>User not found</p>}
                 <div className='flex flex-col'>
@@ -92,10 +92,10 @@ const ProfilePage = () => {
                                     {/* <span className='text-sm text-slate-500'>{POSTS?.length} posts</span> */}
                                 </div>
                             </div>
-                
+
                             <div className='relative group/cover'>
                                 <img
-                                    src={coverImg || user?.coverImg || "/cover.png"}
+                                    src={coverImg || user?.coverImg || "https://www.hipi.info/wp-content/uploads/2013/01/Twitter-Header-Grey03.jpg"}
                                     className='h-52 w-full object-cover'
                                     alt='cover image'
                                 />
@@ -122,10 +122,10 @@ const ProfilePage = () => {
                                     ref={profileImgRef}
                                     onChange={(e) => handleImgChange(e, "profileImg")}
                                 />
-                        
+
                                 <div className='avatar absolute -bottom-16 left-4'>
                                     <div className='w-32 rounded-full relative group/avatar'>
-                                        <img src={profileImg || user?.profileImg || "/avatar-placeholder.png"} />
+                                        <img src={profileImg || user?.profileImg || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} />
                                         <div className='absolute top-5 right-3 p-1 bg-primary rounded-full group-hover/avatar:opacity-100 opacity-0 cursor-pointer'>
                                             {isMyProfile && (
                                                 <MdEdit
@@ -181,7 +181,7 @@ const ProfilePage = () => {
                                                     rel='noreferrer'
                                                     className='text-sm text-blue-500 hover:underline'
                                                 >
-                                                
+
                                                     {user?.link}
                                                 </a>
                                             </>

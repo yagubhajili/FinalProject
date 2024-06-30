@@ -1,8 +1,11 @@
 import React from 'react'
+import Table from '../table/Table'
 
 const HomeAdmin = () => {
   return (
-    <div>HomeAdmin</div>
+    <div>
+      <Table />
+    </div>
   )
 }
 

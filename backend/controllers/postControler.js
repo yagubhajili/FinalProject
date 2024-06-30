@@ -5,35 +5,35 @@ import { v2 as cloudinary } from 'cloudinary'
 
 
 export const createPost = async (req, res) => {
-    try {
-        let { text, img } = req.body
-        const userId = req.user._id.toString()
-        const user = await User.findById(userId)
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' })
-        }
+try {
+		const { text } = req.body;
+		let { img } = req.body;
+		const userId = req.user._id.toString();
 
-        if (!text && !img) {
-            return res.status(400).json({ error: 'Post must have text or image' })
-        }
+		const user = await User.findById(userId);
+		if (!user) return res.status(404).json({ message: "User not found" });
 
-        if (img) {
-            const uploaded = cloudinary.uploader.upload(img)
-            img = uploaded.secure_url
-        }
+		if (!text && !img) {
+			return res.status(400).json({ error: "Post must have text or image" });
+		}
 
-        const newPost = new Post({
-            user: userId,
-            text,
-            img
-        })
-        await newPost.save()
-        res.status(201).json(newPost)
+		if (img) {
+			const uploadedResponse = await cloudinary.uploader.upload(img);
+			img = uploadedResponse.secure_url;
+		}
 
-    } catch (error) {
-        res.status(500).json({ error: "internal servere error" });
+		const newPost = new Post({
+			user: userId,
+			text,
+			img,
+		});
 
-    }
+		await newPost.save();
+		res.status(201).json(newPost);
+	} catch (error) {
+		res.status(500).json({ error: "Internal server error" });
+		console.log("Error in createPost controller: ", error);
+	}
 }
 
 
